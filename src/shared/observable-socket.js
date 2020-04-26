@@ -14,7 +14,7 @@ export class ObservableSocket {
       this.on$("disconnect").map(() => ({ isConnected: false })),
       this.on$("reconnecting").map(attempt => ({ isConnected: false, isReconnecting: true, attempt })),
       this.on$("reconnect_failed").map(() => ({ isConnected: false, isReconnecting: false })))
-      .publishReplay()
+      .publishReplay(1)
       .refCount();
 
     this.status$.subscribe(state => this._state = state);
