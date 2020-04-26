@@ -3,15 +3,11 @@ import * as services from "./services";
 
 // --------------------------
 // PLAYGROUD
-services.server.on$("test")
-  .map(d => d + " tits")
-  .subscribe(item => {
-    console.log(`Got ${item} from server.`)
+services.server.emitAction$("login", {username: "foo", password: "bar"})
+  .subscribe(result => {
+    if (result.error) console.error(result.error);
+    else console.log("We're logged in.");
   });
-
-services.server.status$
-  .subscribe(status => console.log(status));
-
 
 // --------------------------
 // Auth
