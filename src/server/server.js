@@ -63,7 +63,8 @@ io.on("connection", socket => {
 
   const client = new ObservableSocket(socket);
   client.onAction("login", creds => {
-    return Observable.of({username: creds.username});
+    throw new Error("Tits!");
+    //return Observable.of(`USER: ${creds.username}`).delay(3000);
   });
 });
 
