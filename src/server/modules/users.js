@@ -27,9 +27,10 @@ export class UsersModule extends ModuleBase {
   registerClient(client) {
     let index = 0;
     setInterval(() => {
-      const username = `New user ${index++}`;
+      const username = `New user ${index}`;
       const user = {name: username, color: this.getColorForUserName(username)};
       client.emit("users:added", user);
+      index++;
     }, 2000);
 
     client.onActions({
