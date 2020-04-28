@@ -1,5 +1,6 @@
 import { Observable } from "rxjs";
 import _ from "lodash";
+import { validateLogin } from "shared/validation/users";
 
 export class UsersStore {
   constructor(server) {
@@ -21,6 +22,14 @@ export class UsersStore {
     this._server.on("connect", () => {
       this._server.emit("users:list");
     });
+  }
+
+  login$(name) {
+    const validator = validateLogin(name);
+    if (validator.hasErrors)
+      return Observable.throw({message: validator.message});
+
+    return this._server.emitAction$("auth:login", {name});
   }
 }
 
