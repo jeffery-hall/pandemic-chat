@@ -24,7 +24,6 @@
     "gulp-nodemon": "^2.5.0",
     "gulp-util": "^3.0.8",
     "node-sass": "^4.9.4",
-    "rimraf": "^3.0.2",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.18.2",
     "url-loader": "^0.6.1",
@@ -38,9 +37,9 @@
     "jade": "^1.11.0",
     "jquery": "^3.5.0",
     "lodash": "^4.17.15",
-    "rxjs": "^5.0.0",
-    "socket.io": "^2.3.0",
-    "socket.io-client": "^2.3.0",
+    "rxjs": "^5.1.0",
+    "socket.io": "^1.6.0",
+    "socket.io-client": "^1.6.0",
     "source-map-support": "^0.5.19"
   },
   "repository": {
