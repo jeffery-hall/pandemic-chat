@@ -44,7 +44,7 @@ export class ChatFormComponent extends ElementComponent {
   }
 
   _sendMessage$(message) {
-    console.log(message);
+    //console.log(message);
     //this._$input.val("");
     //return Observable.empty();
     return this._chat.sendMessage$(message).catchWrap()

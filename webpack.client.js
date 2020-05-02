@@ -2,7 +2,7 @@ var path = require("path"),
   webpack = require("webpack"),
   ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-const vendorModules = ["jquery", "lodash", "socket.io-client", "rxjs"];
+const vendorModules = ["jquery", "lodash", "socket.io-client", "rxjs", "moment"];
 
 const dirname = path.resolve("./");
 
