@@ -10,7 +10,7 @@ class PlayerComponent extends ElementComponent {
   _onAttach() {
     const $title = this._$mount.find("h1");
     $title.text("Player");
-    this.$element.append("<h1>TITS!</h1>");
+    this.$element.append("<h1>Video Player</h1>");
   }
 }
 
