@@ -39,6 +39,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.25.1",
     "moment-duration-format": "^2.3.2",
+    "request": "^2.88.2",
     "rxjs": "^5.1.0",
     "socket.io": "^1.6.0",
     "socket.io-client": "^1.6.0",
