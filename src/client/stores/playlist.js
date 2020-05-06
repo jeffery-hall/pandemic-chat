@@ -11,15 +11,16 @@ export class PlaylistStore {
       server.on$("playlist:list").map(opList),
       server.on$("playlist:added").map(opAdd),
       server.on$("playlist:current").map(opCurrent),
-      server.on$("playlist:removed").map(opRemove));
+      server.on$("playlist:removed").map(opRemove),
+      server.on$("playlist:moved").map(opMove));
 
     this.actions$ = events$
-      .scan(({state}, op) => op(state), {state: defaultState})
+      .scan(({state}, op) => op(state), { state: defaultState })
       .publish();
 
     const publishedState$ = this.actions$.publishReplay(1);
-    this.state$ = publishedState$ 
-      .startWith({state: defaultState});
+    this.state$ = publishedState$
+      .startWith({ state: defaultState });
 
     this.serverTime$ = this.actions$
       .filter(a => a.type == "current")
@@ -41,7 +42,7 @@ export class PlaylistStore {
   addSource$(url) {
     const validator = validateAddSource(url);
     if (!validator.isValid)
-      return Observable.throw({message: validator.message});
+      return Observable.throw({ message: validator.message });
 
     return this._server.emitAction$("playlist:add", { url });
   }
@@ -52,6 +53,13 @@ export class PlaylistStore {
 
   deleteSource$(source) {
     return this._server.emitAction$("playlist:remove", { id: source.id });
+  }
+
+  moveSource$(fromId, toId) {
+    if (fromId == toId)
+      return Observable.empty();
+
+    return this._server.emitAction$("playlist:move", {fromId, toId});
   }
 }
 
@@ -142,6 +150,34 @@ function opRemove({id}) {
   };
 }
 
+function opMove({fromId, toId}) {
+  return state => {
+    const fromSource = state.map[fromId];
+    if (!fromSource)
+      return opError(state, `Could not move source, from item ${fromId} not found`);
+
+    let toSource = null;
+    if (toId) {
+      toSource = state.map[toId];
+      if (!toSource)
+        return opError(state, `Could not move source, to item ${toId} not found`);
+    }
+
+    const fromIndex = state.list.indexOf(fromSource);
+    state.list.splice(fromIndex, 1);
+
+    const toIndex = toSource ? state.list.indexOf(toSource) + 1 : 0;
+    state.list.splice(toIndex, 0, fromSource);
+
+    return {
+      type: "move",
+      fromSource: fromSource,
+      toSource: toSource,
+      state: state
+    };
+  };
+}
+
 function opError(state, error) {
   console.error(error);
   return {
@@ -152,5 +188,5 @@ function opError(state, error) {
 }
 
 function calculateProgress(time, source) {
-  return Math.floor(Math.min(time / source.totalTime, 1) * 100); 
+  return Math.floor(Math.min(time / source.totalTime, 1) * 100);
 }

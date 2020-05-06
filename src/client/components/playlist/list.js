@@ -18,7 +18,7 @@ export class PlaylistListComponent extends ElementComponent {
 
     // -------------------------------
     // Child Components
-    const sort = new PlaylistSortComponent();
+    const sort = new PlaylistSortComponent(this._playlist, this._users, this.$element);
     sort.attach(this._$mount);
     this.children.push(sort);
 
@@ -52,6 +52,14 @@ export class PlaylistListComponent extends ElementComponent {
       .compSubscribe(this, ({source}) => {
         const comp = itemsMap[source.id];
         this._removeItem(comp);
+      });
+
+    this._playlist.actions$
+      .filter(a => a.type === "move")
+      .compSubscribe(this, ({fromSource, toSource}) => {
+        const fromComp = itemsMap[fromSource.id];
+        const toComp = toSource ? itemsMap[toSource.id] : null;
+        this._moveItem(fromComp, toComp);
       });
 
     // -------------------------------
@@ -114,6 +122,32 @@ export class PlaylistListComponent extends ElementComponent {
       .addClass("remove")
       .animate({opacity: 0, height: 0}, 250, () => {
         comp.detach();
+      });
+  }
+
+  _moveItem(fromComp, toComp) {
+    const fromOffsetTop = fromComp.$element[0].offsetTop;
+    let distance = 0;
+
+    if (toComp) {
+      const toOffsetTop = toComp.$element[0].offsetTop;
+      toComp.$element.after(fromComp.$element);
+
+      distance = fromOffsetTop - toOffsetTop;
+      if (toOffsetTop < fromOffsetTop)
+        distance -= fromComp.$element.height();
+    } else {
+      distance = fromOffsetTop;
+      this.$element.prepend(fromComp.$element);
+    }
+
+    fromComp.$element
+      .addClass("moving")
+      .css({top: distance})
+      .animate({top: 0}, 250, () => {
+        fromComp.$element
+          .removeClass("moving")
+          .css({ top: "" });
       });
   }
 }
