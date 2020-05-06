@@ -53,6 +53,48 @@ section.playlist .toolbar {
 }
 
 //------------------------
+// Context Menu
+section.playlist .context-menu {
+  z-index: 201;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  display: none;
+  position: absolute;
+  background: lighten($background-panel, 10%);
+  border: 5px solid lighten($border-panel, 10%);
+
+  &.open {
+    display: block;
+  }
+
+  > a {
+    padding: 5px;
+    color: $color-highlight;
+    text-decoration: none;
+    display: flex;
+
+    i {
+      order: 1;
+      margin-left: auto;
+    }
+
+    &:hover {
+      background: $background-panel;
+    }
+
+    &.delete {
+      background: darken($color-danger, 5%);
+
+      &:hover {
+        background: darken($color-danger, 10%);
+        background: $color-danger-hover;
+      }
+    }
+  }
+}
+
+//------------------------
 // Playlist Items
 
 @mixin thumbnail-size($width) {
@@ -61,7 +103,7 @@ section.playlist .toolbar {
   height: $thumb-aspect * $width;
 }
 
-html section.playlist .playlist-list > li:hover {
+html section.playlist .playlist-list > li:hover:not(.selected) {
   background: $border-panel;
 
   > .inner {
@@ -142,6 +184,10 @@ section.playlist .playlist-list {
       }
     }
 
+    &.remove {
+      transform: translateX(-200%);
+    }
+
     &.is-playing {
       box-shadow: 0 0 5px 2px #000;
       background: darken($background-panel, 3%);
@@ -161,8 +207,8 @@ section.playlist .playlist-list {
           content: " ";
           display: block;
           position: absolute;
-          left: 5px;
-          right: 5px;
+          left: 0px;
+          right: 0px;
           bottom: 0;
           height: 1px;
         }

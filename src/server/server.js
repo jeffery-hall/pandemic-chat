@@ -60,7 +60,7 @@ app.get("/", (req, res) => {
 
 // ------------------------
 // Services
-const videoServices = [new YoutubeService("12345"/*apiKey*/)];
+const videoServices = [new YoutubeService("AIzaSyBGM0EOVAw1RlH2Ym8V7_ysw9XVSK-vs50"/*12345apiKey*/)];
 const playlistRepository = new FileRepository("./data/playlist.json"); 
 
 
