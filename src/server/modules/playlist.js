@@ -115,8 +115,9 @@ export class PlaylistModule extends ModuleBase {
 
   _tickUpdateTime() {
     if (this._currentSource == null) {
-      if (this._playlist.length)
-        this.setCurrentSource(this._playlist[0]);
+      //console.log("here");
+      //if (this._playlist.length)
+        //this.setCurrentSource(this._playlist[0]);
     } else {
       this._currentTime++;
       if (this._currentTime > this._currentSource.totalTime + 2)

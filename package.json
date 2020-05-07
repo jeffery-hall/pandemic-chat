@@ -32,6 +32,7 @@
     "webpack-hot-middleware": "^2.19.1"
   },
   "dependencies": {
+    "basic-auth": "^2.0.1",
     "express": "^4.17.1",
     "font-awesome": "~4.5.0",
     "jade": "^1.11.0",

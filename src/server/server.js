@@ -19,6 +19,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 const app = express();
 const server = new http.Server(app);
 const io = socketIo(server);
+const auth = require("./auth");
 
 // ------------------------
 // Client Webpack
@@ -50,6 +51,7 @@ if (process.env.USE_WEBPACK === "true") {
 // Configure Express
 app.set("view engine", "jade");
 app.use(express.static("public"));
+app.use(auth);
 
 const useExternalStyles = !isDevelopment;
 app.get("/", (req, res) => {
@@ -57,6 +59,7 @@ app.get("/", (req, res) => {
     useExternalStyles
   });
 })
+
 
 // ------------------------
 // Services

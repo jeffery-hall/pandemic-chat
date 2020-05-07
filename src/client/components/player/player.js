@@ -20,6 +20,13 @@ class PlayerComponent extends ElementComponent {
       youtube: new YoutubePlayer()
     };
 
+    for (let type in this._players) {
+      if (!this._players.hasOwnProperty(type))
+        continue;
+
+      this._players[type].attach(this.$element);
+    }
+
     const initList = _.map(this._players, player => player.init$());
     Observable.merge(...initList)
       .toArray()

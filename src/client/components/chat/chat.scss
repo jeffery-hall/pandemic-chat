@@ -6,6 +6,7 @@ section.chat {
   flex-direction: column;
   overflow: hidden;
   background: $background;
+  flex-grow: 1;
 
   ul.chat-messages {
     align-self: stretch;
