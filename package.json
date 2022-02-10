@@ -23,7 +23,7 @@
     "gulp-load-plugins": "^2.0.3",
     "gulp-nodemon": "^2.5.0",
     "gulp-util": "^3.0.8",
-    "node-sass": "^4.9.4",
+    "node-sass": "^7.0.0",
     "sass-loader": "^4.1.1",
     "style-loader": "^0.18.2",
     "url-loader": "^0.6.1",
