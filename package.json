@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "basic-auth": "^2.0.1",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "font-awesome": "~4.5.0",
     "jade": "^1.11.0",
     "jquery": "^3.5.0",
